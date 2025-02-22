@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import './App.css'
 import Court from './court.jsx'
 import PercentageDisplay from './Percentage.jsx';
@@ -6,11 +6,11 @@ import BasketballIcon from './BasketballIcon.jsx';
 
 function App() {
   const [position, setPosition] = useState(null);
-  const [data, setData] = useState(null);
+  const [setData] = useState(null);
   const [animationKey, setAnimationKey] = useState(0);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/data")
+    fetch("http://127.0.0.1:5000/")
       .then((response) => response.json())
       .then((data) => setData(data.message))
       .catch((error) => console.error("Error fetching data:", error));
@@ -73,7 +73,7 @@ function App() {
 }
 
 // Marker component
-function Marker({ x, y }) {
+function Marker({ x,y }) {
   return (
     <div style={{
       position: 'absolute',

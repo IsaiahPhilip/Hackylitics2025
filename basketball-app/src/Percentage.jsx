@@ -43,7 +43,6 @@ const PercentageDisplay = () => {
     {data ? (
         <div>
             <p>Percentage: {data.percentage} </p>
-            <button onClick={fetchRandomData}>Get Another Random Percentage</button>
         </div>
             
         ): (
