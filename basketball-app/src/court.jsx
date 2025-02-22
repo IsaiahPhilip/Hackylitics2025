@@ -6,7 +6,7 @@ function Court({ onClick }) {
       <img
         src="/court.png"  // If placed in `public/`
         alt="Basketball Court"
-        width="940"
+        width="660"
         height="500"
         onClick={onClick}
         style={{ cursor: "pointer" }}
