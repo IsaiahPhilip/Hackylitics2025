@@ -1,6 +1,7 @@
-import { useState, useEffect} from 'react'
+import { useState } from 'react'
 import './App.css'
 import Court from './court.jsx'
+import PercentageDisplay from './Percentage.jsx';
 import BasketballIcon from './BasketballIcon.jsx';
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+
+  
 
   function handleCourtClick(event) {
     const rect = event.target.getBoundingClientRect();
@@ -34,12 +37,13 @@ function App() {
 
       {/* Popup Sidebar (Auto-Generated) */}
       {position && (
+
         <div key={animationKey} style={popupStyle} className="popup">
           {/* <p><strong>X:</strong> {Math.round(25 - Math.round(position.y)/10)}</p>
           <p><strong>Y:</strong> {Math.round(Math.round(position.x)/10)}</p> */}
           {/* <p>Percent: {data || "Loading..."}</p> */}
           <div id="shot-percentage">
-            <h2>87%</h2>
+            <PercentageDisplay/>
           </div>
           <div id="similarity">
             <h3>Most similar to:</h3>
