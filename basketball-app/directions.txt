@@ -1,0 +1,13 @@
+What you are going to do is first 
+#In order to create your own enviornment 
+
+Make sure before you do this to remove my enviornment from your folder, To do so follow these steps 
+
+rm -rf env-(Name)
+
+python3 -m venv env-(YOUR NAME HERE)
+
+source .venv/bin/activate (macOS/Linux # DO NOT INCLUDE)
+.venv\Scripts\activate (Windows # DO NOT INCLUDE)
+
+pip install -r requirements.txt #Install the dependencies from the file 
