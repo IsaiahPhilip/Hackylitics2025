@@ -1,18 +1,12 @@
-import { useState, useEffect} from 'react'
+import { useState } from 'react'
 import './App.css'
 import Court from './court.jsx'
+import PercentageDisplay from './Percentage.jsx';
 
 function App() {
   const [position, setPosition] = useState(null);
-  const [data, setData] = useState(null);
 
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/data")
-      .then((response) => response.json())
-      .then((data) => setData(data.message))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
-
+  
 
   function handleCourtClick(event) {
     const rect = event.target.getBoundingClientRect();
@@ -27,7 +21,7 @@ function App() {
       {position && (
         <p>
           Shot Position: X = {Math.round(25 - Math.round(position.y)/10)}, Y = {Math.round(Math.round(position.x)/10)}
-          Percent: {data || "Loading..."}
+          <PercentageDisplay/>
         </p>
       )}
     </div>
