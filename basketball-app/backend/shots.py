@@ -5,9 +5,8 @@ import uuid
 from sqlalchemy import String, Integer, Float 
 from sqlalchemy.sql.expression import func
 from webscraping import get_player_info
-#from data import point_shot
 import pandas as pd 
-import zipfile
+import os
 
 
 app = Flask(__name__)
@@ -16,13 +15,15 @@ db = SQLAlchemy(app)
 
 CORS(app) #Enable CORS for all routes 
 
-#Decompressing zip and getting CSV 
-# zip_file_path = "basketball-app/data/NBA_2024_Shots 2.csv.zip"
-# csv_file_name = "NBA_2024_Shots.csv"
+#Read csv
+csv_filename = "2024shotpct.csv"
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(script_dir)
+data_dir = os.path.join(parent_dir, "data")
+shot_pct = os.path.join(data_dir,csv_filename)
 
-# with zipfile.ZipFile(zip_file_path,'r') as zip_ref: 
-#     zip_ref.extractall("basketball-app/data/")
-
+df = pd.read_csv(shot_pct)
+print(df)
 
 class LocBasketball(db.Model):
     id = db.Column(String(36), primary_key = True, default = lambda:str (uuid.uuid4())) # main distinguishing factor
@@ -47,7 +48,7 @@ def get_data():
     #Modify to return a single random record 
     if request.method == 'GET':
         # Return a single random record
-        random_loc = LocBasketball.query.order_by(func.random()).first() 
+        random_loc = LocBasketball.query.all() 
         data = {
             "id": random_loc.id, 
             "year": random_loc.year, 
