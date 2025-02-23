@@ -1,12 +1,14 @@
 import { useState, useEffect} from 'react'
 import './App.css'
+import axios from 'axios'
 import Court from './court.jsx'
 import PercentageDisplay from './Percentage.jsx';
 import BasketballIcon from './BasketballIcon.jsx';
 
+
 function App() {
   const [position, setPosition] = useState(null);
-  const [setData] = useState(null);
+  const [data, setData] = useState(null);
   const [animationKey, setAnimationKey] = useState(0);
 
   useEffect(() => {
@@ -14,10 +16,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => setData(data.message))
       .catch((error) => console.error("Error fetching data:", error));
-  }, []);
-
-
-  
+  }, [setData]);
 
   function handleCourtClick(event) {
     const rect = event.target.getBoundingClientRect();
@@ -25,8 +24,19 @@ function App() {
     const y = event.clientY - rect.top;
     setPosition({ x, y });
     setAnimationKey(prevKey => prevKey + 1);
-  }
 
+    // Send the x, y position to the backend
+    axios.post('http://127.0.0.1:5000/', { x, y })
+      .then(response => {
+        console.log('Position sent successfully:', response.data);
+      })
+      .catch(error => {
+        console.error('Error sending position:', error);
+      });
+  }
+  
+
+  
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
       {/* Basketball Court */}

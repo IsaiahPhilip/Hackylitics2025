@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy 
 import uuid
@@ -43,24 +43,27 @@ with app.app_context():
    db.session.commit()
 
 @app.route('/', methods=['GET', 'POST'])
-
 def get_data(): 
     #Modify to return a single random record 
-    random_loc = LocBasketball.query.order_by(func.random()).first() 
-    data = {
-        
+    if request.method == 'GET':
+        # Return a single random record
+        random_loc = LocBasketball.query.order_by(func.random()).first() 
+        data = {
+            "id": random_loc.id, 
+            "year": random_loc.year, 
+            "loc_x": random_loc.loc_x,
+            "loc_y": random_loc.loc_y,
+            "percentage": random_loc.percentage
+        }
+        return jsonify(data)
 
-        "id": random_loc.id, 
-        "year": random_loc.year, 
-        "loc_x": random_loc.loc_x,
-        "loc_y": random_loc.loc_y,
-        "percentage": random_loc.percentage
+    elif request.method == 'POST':
+        data2 = request.get_json()
+        print(data2)
 
-        
-
-    }
-    print(data) #check to see if data is there
-    return jsonify(data)
-
+        x = round(25 - round(data2.get('y'))/10)
+        y = round(round(data2.get('x'))/10)
+        print(f"Received position: x={x}, y={y}")
+        return jsonify({"message": "Position received successfully"})
 if __name__ == '__main__':
     app.run(debug = True)
