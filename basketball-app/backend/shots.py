@@ -5,6 +5,9 @@ import uuid
 from sqlalchemy import String, Integer, Float 
 from sqlalchemy.sql.expression import func
 from webscraping import get_player_info
+#from data import point_shot
+import pandas as pd 
+import zipfile
 
 
 app = Flask(__name__)
@@ -12,6 +15,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///basketball_loc.db'
 db = SQLAlchemy(app)
 
 CORS(app) #Enable CORS for all routes 
+
+#Decompressing zip and getting CSV 
+# zip_file_path = "basketball-app/data/NBA_2024_Shots 2.csv.zip"
+# csv_file_name = "NBA_2024_Shots.csv"
+
+# with zipfile.ZipFile(zip_file_path,'r') as zip_ref: 
+#     zip_ref.extractall("basketball-app/data/")
+
 
 class LocBasketball(db.Model):
     id = db.Column(String(36), primary_key = True, default = lambda:str (uuid.uuid4())) # main distinguishing factor
