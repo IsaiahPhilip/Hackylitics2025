@@ -1,14 +1,25 @@
-What you are going to do is first 
+For environment:
 #In order to create your own enviornment 
-
-Make sure before you do this to remove my enviornment from your folder, To do so follow these steps 
 
 (macOS/Linux) / (Windows)
 
+For removal:
 rm -rf env-(Name) / rmdir /s /q env-(Name) / Remove-Item -Recurse -Force env-(Name)
 
+To create env:
 python3 -m venv env-(YOUR NAME HERE) / python -m venv env-(YOUR NAME HERE)
 
+To activate env:
 source .venv/bin/activate / .venv\Scripts\activate / .\env-(YOUR NAME HERE)\Scripts\Activate.ps1 
 
-pip install -r requirements.txt #Install the dependencies from the file 
+To populate env:
+pip install -r requirements.txt #Install the dependencies from the file
+
+For Backend (do this before trying to run frontend)
+1. navigate to backend dir
+2. run: Python shots.py
+
+For Frontend
+1. navigate to basketball-app dir
+2. npm install
+3. npm run dev
